@@ -5,11 +5,14 @@ import jakarta.persistence.*;
 import jdk.jfr.DataAmount;
 import lombok.*;
 
+//lombok
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 @ToString
+
+//jpa
 @Entity
 @Table(name = "student")
 public class Student {
