@@ -24,6 +24,12 @@ public class StudentDAOImpl implements StudentDAO {
     public void save(Student student) {
         entityManager.persist(student);
 
+    }
 
+    //implement findById method
+    // no need transactional because we are not changing anything
+    @Override
+    public Student findById(Integer id) {
+        return entityManager.find(Student.class, id);
     }
 }

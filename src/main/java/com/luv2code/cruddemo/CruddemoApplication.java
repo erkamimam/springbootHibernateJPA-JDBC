@@ -22,11 +22,12 @@ public class CruddemoApplication {
     public CommandLineRunner commandLineRunner(StudentDAO studentDAO) {
         return runner -> {
             //createStudent(studentDAO);
-            createMultipleStudent(studentDAO);
-
+            //createMultipleStudent(studentDAO);
+            readStudent(studentDAO);
 
         };
     }
+
 
     private void createMultipleStudent(StudentDAO studentDAO) {
         //create multiple students
@@ -34,6 +35,7 @@ public class CruddemoApplication {
         Student student1 = Student.builder().firstName("ahmet").lastName("büyükates").email("ahmet@gmail.com").build();
         Student student2 = Student.builder().firstName("mehmet").lastName("ali").email("mehmet@gmail.com").build();
         Student student3 = Student.builder().firstName("ali").lastName("veli").email("ali@gmial.com").build();
+
 
 
         //create a student object
@@ -66,5 +68,33 @@ public class CruddemoApplication {
         //display the saved student object
         System.out.println("Saved student. Generated id: " + student.getId());
     }
+
+    private void readStudent(StudentDAO studentDAO) {
+        //create the student object
+        System.out.println("Creating new student object");
+        Student student= Student.builder()
+                .firstName("ahmet")
+                .lastName("büyükates")
+                .email("ahmet@gmail.com").build();
+
+        //save the student object
+        System.out.println("Saving the student...");
+        studentDAO.save(student);
+
+        //display the saved student object
+        int theId = student.getId();
+        System.out.println("Saved student. Generated id: " + theId);
+
+        //retrieve student based on the id: primary key
+        System.out.println("Getting student with id: " + theId);
+        Student myStudent = studentDAO.findById(theId);
+
+        //display the student
+        System.out.println("Found the student: " + myStudent);
+
+
+    }
+
+
 
 }
