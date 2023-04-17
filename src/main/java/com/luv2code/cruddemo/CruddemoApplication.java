@@ -24,12 +24,43 @@ public class CruddemoApplication {
     public CommandLineRunner commandLineRunner(StudentDAO studentDAO) {
         return runner -> {
             //createStudent(studentDAO);
-            //createMultipleStudent(studentDAO);
+            createMultipleStudent(studentDAO);
             //readStudent(studentDAO);
             //queryForStudent(studentDAO);
-            queryForStudentByLastNames(studentDAO);
-
+            //queryForStudentByLastNames(studentDAO);
+            //updateStudent(studentDAO);
+            //deleteStudent(studentDAO);
+            //deleteAllStudent(studentDAO);
         };
+    }
+
+    private void deleteAllStudent(StudentDAO studentDAO) {
+        System.out.println("Deleting all students");
+        int numberOfDeletedStudents =studentDAO.deleteAll();
+        System.out.println("Deleted row count: " + numberOfDeletedStudents);
+    }
+
+    private void deleteStudent(StudentDAO studentDAO) {
+        int studentId = 4;
+        System.out.println("Deleting student with id: " + studentId);
+        studentDAO.delete(studentId);
+    }
+
+    private void updateStudent(StudentDAO studentDAO) {
+        //retrieve student based on the id: primary key
+        int studentId = 2;
+        System.out.println("Getting student with id: " + studentId);
+
+        Student student = studentDAO.findById(studentId);
+
+        System.out.println("Updating student....");
+
+        //change the first name to "Scooby"
+        student.setFirstName("Scooby");
+        studentDAO.update(student);
+        System.out.println("Student updated: " + student.toString());
+
+
     }
 
     private void queryForStudentByLastNames(StudentDAO studentDAO) {
@@ -66,7 +97,6 @@ public class CruddemoApplication {
         Student student3 = Student.builder().firstName("ali").lastName("veli").email("ali@gmial.com").build();
 
 
-
         //create a student object
         System.out.println("Saving the students ...");
         studentDAO.save(student1);
@@ -101,7 +131,7 @@ public class CruddemoApplication {
     private void readStudent(StudentDAO studentDAO) {
         //create the student object
         System.out.println("Creating new student object");
-        Student student= Student.builder()
+        Student student = Student.builder()
                 .firstName("ahmet")
                 .lastName("büyükates")
                 .email("ahmet@gmail.com").build();
@@ -123,7 +153,6 @@ public class CruddemoApplication {
 
 
     }
-
 
 
 }

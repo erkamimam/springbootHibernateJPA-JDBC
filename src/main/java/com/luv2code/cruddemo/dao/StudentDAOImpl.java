@@ -29,6 +29,29 @@ public class StudentDAOImpl implements StudentDAO {
 
     }
 
+    //implement update method
+    //we update student
+    @Override
+    @Transactional
+    public void update(Student thestudent) {
+        entityManager.merge(thestudent);
+    }
+
+    @Override
+    @Transactional
+    public void delete(Integer id) {
+        Student student = entityManager.find(Student.class, id);
+        //delete student
+        entityManager.remove(student);
+    }
+
+    @Override
+    @Transactional
+    public int deleteAll() {
+        return entityManager.createQuery("DELETE FROM Student").executeUpdate();
+    }
+
+
     //implement findById method
     // no need transactional because we are not changing anything
     @Override
@@ -56,5 +79,7 @@ public class StudentDAOImpl implements StudentDAO {
         theQuery.setParameter("theData", theLastName);
         return theQuery.getResultList();
     }
+
+
 }
 
